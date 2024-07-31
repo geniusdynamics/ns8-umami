@@ -1,44 +1,15 @@
 # ns8-umami
 
-This is a template module for [NethServer 8](https://github.com/NethServer/ns8-core).
-To start a new module from it:
-
-1. Click on [Use this template](https://github.com/NethServer/ns8-umami/generate).
-   Name your repo with `ns8-` prefix (e.g. `ns8-mymodule`). 
-   Do not end your module name with a number, like ~~`ns8-baaad2`~~!
-
-1. Clone the repository, enter the cloned directory and
-   [configure your GIT identity](https://git-scm.com/book/en/v2/Getting-Started-First-Time-Git-Setup#_your_identity)
-
-1. Rename some references inside the repo:
-   ```
-   modulename=$(basename $(pwd) | sed 's/^ns8-//') &&
-   git mv imageroot/systemd/user/umami.service imageroot/systemd/user/${modulename}.service &&
-   git mv imageroot/systemd/user/umami-app.service imageroot/systemd/user/${modulename}-app.service && 
-   git mv tests/umami.robot tests/${modulename}.robot &&
-   sed -i "s/umami/${modulename}/g" $(find .github/ * -type f) &&
-   git commit -a -m "Repository initialization"
-   ```
-
-1. Edit this `README.md` file, by replacing this section with your module
-   description
-
-1. Adjust `.github/workflows` to your needs. `clean-registry.yml` might
-   need the proper list of image names to work correctly. Unused workflows
-   can be disabled from the GitHub Actions interface.
-
-1. Commit and push your local changes
-
 ## Install
 
 Instantiate the module with:
 
-    add-module ghcr.io/nethserver/umami:latest 1
+    add-module ghcr.io/geniusdynamics/umami:latest 1
 
 The output of the command will return the instance name.
 Output example:
 
-    {"module_id": "umami1", "image_name": "umami", "image_url": "ghcr.io/nethserver/umami:latest"}
+    {"module_id": "umami1", "image_name": "umami", "image_url": "ghcr.io/geniusdynamics/umami:latest"}
 
 ## Configure
 
@@ -82,16 +53,17 @@ To uninstall the instance:
 ## Update
 
 To Update the instance:
-
-    api-cli run update-module --data '{"module_url":"ghcr.io/nethserver/umami:latest","instances":["umami1"],"force":true}'
-
+```shell
+   api-cli run update-module --data '{"module_url":"ghcr.io/geniusdynamics/umami:latest","instances":["umami1"],"force":true}'
+```
+ 
 ## Smarthost setting discovery
 
 Some configuration settings, like the smarthost setup, are not part of the
 `configure-module` action input: they are discovered by looking at some
 Redis keys.  To ensure the module is always up-to-date with the
 centralized [smarthost
-setup](https://nethserver.github.io/ns8-core/core/smarthost/) every time
+setup](https://geniusdynamics.github.io/ns8-core/core/smarthost/) every time
 umami starts, the command `bin/discover-smarthost` runs and refreshes
 the `state/smarthost.env` file with fresh values from Redis.
 
@@ -158,7 +130,7 @@ podman exec -ti   umami-app sh
 Test the module using the `test-module.sh` script:
 
 
-    ./test-module.sh <NODE_ADDR> ghcr.io/nethserver/umami:latest
+    ./test-module.sh <NODE_ADDR> ghcr.io/geniusdynamics/umami:latest
 
 The tests are made using [Robot Framework](https://robotframework.org/)
 
