@@ -21,11 +21,8 @@ ExecStartPre=-runagent discover-smarthost
 ExecStart=/usr/bin/podman run --conmon-pidfile %t/umami-app.pid \
     --cidfile %t/umami-app.ctr-id --cgroups=no-conmon \
     --pod-id-file %t/umami.pod-id --replace -d --name  umami-app \
-    --volume umami-app:/var/www/html/:Z \
-    --volume ./config:/tmp:Z \
-    --env=NGINX_* \
-    --env 'CONFIG_DATABASE_URI="postgresql://postgres:Nethesis,1234@127.0.0.1:5432/umami"' \
-    ${NGINX_IMAGE}
+    --env-file=%S/state/umami.env \
+    ${UMAMI_IMAGE}
 ExecStop=/usr/bin/podman stop --ignore --cidfile %t/umami-app.ctr-id -t 10
 ExecReload=/usr/bin/podman kill -s HUP umami-app
 SyslogIdentifier=%u
