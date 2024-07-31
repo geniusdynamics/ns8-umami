@@ -9,6 +9,7 @@ import json
 import sys
 import agent
 import os
+import secrets
 
 # Try to parse the stdin as JSON.
 # If parsing fails, output everything to stderr
@@ -34,4 +35,18 @@ postgres_config = {
     "POSTGRES_DB": POSTGRES_DB
 }
 agent.write_envfile("database.env", postgres_config)
+
+# DATABASE_URL: postgresql://umami:umami@db:5432/umami
+#       DATABASE_TYPE: postgresql
+#       APP_SECRET: replace-me-with-a-random-string
+DATABASE_URL = "postgresql://"+POSTGRES_USER+":"+POSTGRES_PASSWORD+"@postgresql-app:5432/"+POSTGRES_DB
+DATABASE_TYPE = "postgresql"
+APP_SECRET = secrets.token_urlsafe(32)
+umami_config = {
+    "DATABASE_URL": DATABASE_URL,
+    "DATABASE_TYPE": DATABASE_TYPE,
+    "APP_SECRET": APP_SECRET
+}
+agent.write_envfile("umami.env", umami_config)
+
 #agent.dump_env()
