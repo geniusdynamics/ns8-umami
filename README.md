@@ -3,9 +3,10 @@
 ## Install
 
 Instantiate the module with:
-
-    add-module ghcr.io/geniusdynamics/umami:latest 1
-
+```shell
+ add-module ghcr.io/geniusdynamics/umami:latest 1
+```
+   
 The output of the command will return the instance name.
 Output example:
 
@@ -40,15 +41,17 @@ The above command will:
 ## Get the configuration
 You can retrieve the configuration with
 
-```
+```shell
 api-cli run get-configuration --agent module/umami1
 ```
 
 ## Uninstall
 
 To uninstall the instance:
-
-    remove-module --no-preserve umami1
+```shell
+remove-module --no-preserve umami1
+```
+    
 
 ## Update
 
