@@ -14,7 +14,7 @@ images=()
 repobase="${REPOBASE:-ghcr.io/geniusdynamics}"
 # Configure the image name
 reponame="umami"
-umami_version="postgresql-v2"
+umami_version="postgresql-v2.19.0"
 
 # Create a new empty container image
 container=$(buildah from scratch)
