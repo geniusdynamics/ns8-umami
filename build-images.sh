@@ -17,7 +17,8 @@ reponame="umami"
 # Node.js 25+ no longer ships Corepack, install it from npm
 # renovate: datasource=npm packageName=corepack
 corepack_version=0.36.0
-umami_version="postgresql-v2.19.0"
+# renovate: datasource=docker packageName=ghcr.io/umami-software/umami
+umami_version=postgresql-v2.19.0
 
 # Create a new empty container image
 container=$(buildah from scratch)
